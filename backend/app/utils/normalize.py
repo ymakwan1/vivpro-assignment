@@ -63,5 +63,5 @@ def normalize_and_insert_song_data(json_path = 'data/playlist.json'):
         except Exception as e:
             db.session.rollback()
             print(f"Error inserting songs into the database: {e}")
-        else:
-            print("No valid song entries found to insert.")
+    else:
+        print("No valid song entries found to insert.")
