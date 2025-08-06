@@ -44,8 +44,7 @@ def normalize_and_insert_song_data(json_path = 'data/playlist.json'):
                 num_bars=item['num_bars'],
                 num_sections=item['num_sections'],
                 num_segments=item['num_segments'],
-                class_=item['class'],
-                rating=item.get('rating', 0.0)
+                class_=item['class']
             )
             song_objects.append(song)
         except KeyError as e:
