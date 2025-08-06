@@ -15,8 +15,18 @@ def normalize_and_insert_song_data(json_path = 'data/playlist.json'):
             print(f"Error decoding JSON: {e}")
             return
 
-    if not isinstance(raw_data, list):
-        print("JSON data is not a list.")
+    if not isinstance(raw_data, dict):
+        print("Expected a column-wise JSON dictionary.")
+        return
+    
+    try:
+        num_items = len(next(iter(raw_data.values())))
+        normalized_data = []
+        for i in range(num_items):
+            item = {key: value[str(i)] for key, value in raw_data.items()}
+            normalized_data.append(item)
+    except Exception as e:
+        print(f"Error normalizing data: {e}")
         return
     
     if Song.query.first() is not None:
@@ -24,27 +34,27 @@ def normalize_and_insert_song_data(json_path = 'data/playlist.json'):
         return
     
     song_objects = []
-    for item in raw_data:
+    for item in normalized_data:
         try:
             song = Song(
-                id = item['id'],
+                id=item['id'],
                 title=item['title'],
-                danceability=item['danceability'],
-                energy=item['energy'],
-                key=item['key'],
-                loudness=item['loudness'],
-                mode=item['mode'],
-                acousticness=item['acousticness'],
-                instrumentalness=item['instrumentalness'],
-                liveness=item['liveness'],
-                valence=item['valence'],
-                tempo=item['tempo'],
-                duration_ms=item['duration_ms'],
-                time_signature=item['time_signature'],
-                num_bars=item['num_bars'],
-                num_sections=item['num_sections'],
-                num_segments=item['num_segments'],
-                class_=item['class']
+                danceability=float(item.get('danceability', 0)),
+                energy=float(item.get('energy', 0)),
+                key=int(item.get('key', 0)),
+                loudness=float(item.get('loudness', 0)),
+                mode=int(item.get('mode', 0)),
+                acousticness=float(item.get('acousticness', 0)),
+                instrumentalness=float(item.get('instrumentalness', 0)),
+                liveness=float(item.get('liveness', 0)),
+                valence=float(item.get('valence', 0)),
+                tempo=float(item.get('tempo', 0)),
+                duration_ms=int(item.get('duration_ms', 0)),
+                time_signature=int(item.get('time_signature', 0)),
+                num_bars=int(item.get('num_bars', 0)),
+                num_sections=int(item.get('num_sections', 0)),
+                num_segments=int(item.get('num_segments', 0)),
+                class_=int(item.get('class', 0))
             )
             song_objects.append(song)
         except KeyError as e:
