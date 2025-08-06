@@ -2,8 +2,7 @@ import json, os
 from app.models import Song
 from app import db
 
-def normalize_and_insert_song_data(json_path = 'data/playlist.json'):
-
+def normalize_and_insert_song_data(json_path = 'app/data/playlist.json'):
     if not os.path.exists(json_path):
         print(f"File {json_path} does not exist.")
         return
