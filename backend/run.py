@@ -1,5 +1,5 @@
 from app import create_app
-from backend.app.utils.normalize import normalize_and_insert_song_data
+from app.utils.normalize import normalize_and_insert_song_data
 
 app = create_app()
 
