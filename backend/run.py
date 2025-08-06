@@ -5,5 +5,9 @@ app = create_app()
 
 if __name__ == "__main__":
     with app.app_context():
-        normalize_and_insert_song_data()
+        try:
+            normalize_and_insert_song_data()
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            
     app.run(debug = True)
