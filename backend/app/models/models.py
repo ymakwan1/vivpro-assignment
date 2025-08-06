@@ -4,7 +4,7 @@ db = SQLAlchemy()
 
 class Song(db.Model):
     __tablename__ = 'songs'
-    index = db.Column(db.Integer, autoincrement=True)
+    
     id = db.Column(db.String(255), primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     danceability = db.Column(db.Float, nullable=False)
