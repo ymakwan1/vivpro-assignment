@@ -12,7 +12,7 @@ class Song(db.Model):
     key = db.Column(db.Integer, nullable=False)
     loudness = db.Column(db.Float, nullable=False)
     mode = db.Column(db.Integer, nullable=False)
-    accousticness = db.Column(db.Float, nullable=False)
+    acousticness = db.Column(db.Float, nullable=False)
     instrumentalness = db.Column(db.Float, nullable=False)
     liveness = db.Column(db.Float, nullable=False)
     valence = db.Column(db.Float, nullable=False)
@@ -21,7 +21,7 @@ class Song(db.Model):
     time_signature = db.Column(db.Integer, nullable=False)
     num_bars = db.Column(db.Integer, nullable=False)
     num_sections = db.Column(db.Integer, nullable=False)
-    nums_segments = db.Column(db.Integer, nullable=False)
+    num_segments = db.Column(db.Integer, nullable=False)
     class_ = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False, default=0.0)
 
