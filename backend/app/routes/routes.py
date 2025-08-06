@@ -8,7 +8,7 @@ def get_all_songs():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
-    songs = Song.query.paginate(page, per_page, error_out=False)
+    songs = Song.query.paginate(page=page, per_page=per_page, error_out=False)
 
     result = []
 
