@@ -68,7 +68,7 @@ def get_song_by_title(title):
 
 @songs_bp.route('/<string:song_id>/rate', methods=['POST'])
 def rate_song(song_id):
-    song = Song.query.get(song_id)
+    song = db.session.get(Song, song_id)
 
     if not song:
         return jsonify({'error': 'Song not found'}), 404
