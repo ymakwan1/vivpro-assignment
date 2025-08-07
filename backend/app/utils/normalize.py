@@ -1,35 +1,36 @@
-import json, os
+#backend/app/utils/normalize.py
+import json, os, logging
 from app.models import Song
 from app import db
 
 def normalize_and_insert_song_data(json_path = 'app/data/playlist.json'):
     if not os.path.exists(json_path):
-        print(f"File {json_path} does not exist.")
+        logging.warning(f"File {json_path} does not exist.")
         return
     
     with open(json_path, 'r') as file:
         try:
             raw_data = json.load(file)
         except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
+            logging.error(f"Error decoding JSON: {e}")
             return
 
     if not isinstance(raw_data, dict):
-        print("Expected a column-wise JSON dictionary.")
+        logging.error("Expected a column-wise JSON dictionary.")
         return
     
     try:
         num_items = len(next(iter(raw_data.values())))
-        normalized_data = []
-        for i in range(num_items):
-            item = {key: value[str(i)] for key, value in raw_data.items()}
-            normalized_data.append(item)
+        normalized_data = [
+            {key: value[str(i)] for key, value in raw_data.items()}
+            for i in range(num_items)
+        ]
     except Exception as e:
-        print(f"Error normalizing data: {e}")
+        logging.error(f"Error normalizing data: {e}")
         return
     
     if Song.query.first() is not None:
-        print("Songs already exist in the database.")
+        logging.info("Songs already exist in the database.")
         return
     
     song_objects = []
@@ -57,19 +58,19 @@ def normalize_and_insert_song_data(json_path = 'app/data/playlist.json'):
             )
             song_objects.append(song)
         except KeyError as e:
-            print(f"Missing key in item {item}: {e}")
+            logging.error(f"Missing key in item {item}: {e}")
             continue
         except Exception as e:
-            print(f"Error creating Song object from item {item}: {e}")
+            logging.error(f"Error creating Song object from item {item}: {e}")
             continue
 
     if song_objects:
         try:
             db.session.bulk_save_objects(song_objects)
             db.session.commit()
-            print(f"Inserted {len(song_objects)} songs into the database.")
+            logging.info(f"Inserted {len(song_objects)} songs into the database.")
         except Exception as e:
             db.session.rollback()
-            print(f"Error inserting songs into the database: {e}")
+            logging.error(f"Error inserting songs into the database: {e}")
     else:
-        print("No valid song entries found to insert.")
+        logging.info("No valid song entries found to insert.")

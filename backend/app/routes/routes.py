@@ -1,3 +1,4 @@
+#backend/app/routes/routes.py
 from flask import Blueprint, jsonify, request
 from app.models import db, Song
 
@@ -10,10 +11,8 @@ def get_all_songs():
 
     songs = Song.query.paginate(page=page, per_page=per_page, error_out=False)
 
-    result = []
-
-    for song in songs.items:
-        result.append({
+    result = [
+        {
             'id': song.id,
             'title': song.title,
             'danceability': song.danceability,
@@ -33,7 +32,8 @@ def get_all_songs():
             'num_segments': song.num_segments,
             'class': song.class_,
             'rating': song.rating
-        })
+        } for song in songs.items
+    ]
 
     return jsonify(result), 200
 
