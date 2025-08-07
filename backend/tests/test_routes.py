@@ -1,18 +1,12 @@
 #backend/tests/test_routes.py
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app import create_app
-
 import pytest
 from app.models import db, Song
+from config import TestingConfig
 
 @pytest.fixture
 def client():
-    app = create_app()
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app = create_app(config_class=TestingConfig)
 
     app_context = app.app_context()
     app_context.push()
