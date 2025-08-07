@@ -9,8 +9,6 @@ backend/app/routes/__pycache__/
 backend/app/routes/*.pyc
 backend/app/utils/__pycache__/
 backend/app/utils/*.pyc
-backend/app/tests/__pycache__/
-backend/app/tests/*.pyc
 backend/instance/
 backend/tests/__pycache__/
 backend/tests/*.pyc
