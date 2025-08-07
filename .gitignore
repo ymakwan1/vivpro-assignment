@@ -12,3 +12,15 @@ backend/app/utils/*.pyc
 backend/instance/
 backend/tests/__pycache__/
 backend/tests/*.pyc
+
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/coverage
+frontend/build
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
