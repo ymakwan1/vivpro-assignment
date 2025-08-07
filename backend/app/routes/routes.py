@@ -6,8 +6,18 @@ songs_bp = Blueprint('songs', __name__)
 
 @songs_bp.route('/', methods=['GET'])
 def get_all_songs():
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
+    try:
+        page_str = request.args.get('page', '1')
+        per_page_str = request.args.get('per_page', '10')
+
+        page = int(page_str)
+        per_page = int(per_page_str)
+
+        if page < 1 or per_page < 1:
+            raise ValueError("Page and per_page must be positive integers")
+
+    except ValueError:
+        return jsonify({'error': 'Invalid pagination parameters. Must be positive integers.'}), 400
 
     songs = Song.query.paginate(page=page, per_page=per_page, error_out=False)
 
