@@ -1,7 +1,21 @@
+// /frontend/src/services/api.js
 import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:5001/songs',
 });
 
-export default api;
+export async function getSongs(page = 1, perPage = 10) {
+  const res = await api.get('/', { params: { page, per_page: perPage } });
+  return res.data; // array
+}
+
+export async function getSongByTitle(title) {
+  const res = await api.get(`/${encodeURIComponent(title)}`);
+  return res.data; // single song object
+}
+
+export async function rateSong(songId, rating) {
+  const res = await api.post(`/${encodeURIComponent(songId)}/rate`, { rating });
+  return res.data; // { message, rating }
+}
