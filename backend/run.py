@@ -11,6 +11,5 @@ if __name__ == "__main__":
             normalize_and_insert_song_data()
         except Exception as e:
             app.logger.error(f"Error normalizing and inserting song data: {e}")
-            # print(f"Error occurred: {e}")
             
     app.run()
