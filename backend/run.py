@@ -12,4 +12,4 @@ if __name__ == "__main__":
         except Exception as e:
             app.logger.error(f"Error normalizing and inserting song data: {e}")
             
-    app.run()
+    app.run(host="0.0.0.0", port=5001)
