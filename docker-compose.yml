@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: songs-backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./backend:/app
+    environment:
+      FLASK_ENV: development
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: songs-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_API_BASE: http://backend:5001/songs
+    depends_on:
+      - backend
+    restart: unless-stopped
