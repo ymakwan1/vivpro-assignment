@@ -8,7 +8,7 @@ export default function RatingStars({ song, onRated }) {
   const [loading, setLoading] = useState(false);
 
   const handleChange = async (_e, newValue) => {
-    const safe = typeof newValue === 'number' ? newValue : 0; // backend accepts 0..5
+    const safe = typeof newValue === 'number' ? newValue : 0;
     setValue(safe);
     setLoading(true);
     try {

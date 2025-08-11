@@ -7,15 +7,15 @@ const api = axios.create({
 
 export async function getSongs(page = 1, perPage = 10) {
   const res = await api.get('/', { params: { page, per_page: perPage } });
-  return res.data; // array
+  return res.data; 
 }
 
 export async function getSongByTitle(title) {
   const res = await api.get(`/${encodeURIComponent(title)}`);
-  return res.data; // single song object
+  return res.data; 
 }
 
 export async function rateSong(songId, rating) {
   const res = await api.post(`/${encodeURIComponent(songId)}/rate`, { rating });
-  return res.data; // { message, rating }
+  return res.data; 
 }

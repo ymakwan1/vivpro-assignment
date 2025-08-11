@@ -84,7 +84,7 @@ def test_get_all_songs_with_pagination(client):
     
 def test_get_all_songs_invalid_page_param(client):
     response = client.get('/songs/?page=abc&per_page=1')
-    assert response.status_code == 400  # Flask will likely return 400 for bad query param type
+    assert response.status_code == 400 
 
 def test_get_all_songs_invalid_per_page_param(client):
     response = client.get('/songs/?page=1&per_page=xyz')
@@ -98,7 +98,7 @@ def test_get_all_songs_negative_page(client):
 
 def test_get_all_songs_negative_per_page(client):
     response = client.get('/songs/?page=1&per_page=-5')
-    assert response.status_code == 400 or response.status_code == 200  # Depends on app config
+    assert response.status_code == 400 or response.status_code == 200  
 
 def test_get_all_songs_zero_per_page(client):
     response = client.get('/songs/?per_page=0')
@@ -107,7 +107,7 @@ def test_get_all_songs_zero_per_page(client):
 def test_get_all_songs_out_of_bounds_page(client):
     response = client.get('/songs/?page=9999&per_page=10')
     assert response.status_code == 200
-    assert response.get_json() == []  # Should return empty list when no results
+    assert response.get_json() == []  
 
 # GET /songs/<title>
 def test_get_song_by_title_exact(client):

@@ -33,20 +33,18 @@ export default function App() {
   const handleSearch = async (title) => {
   const trimmed = (title || '').trim();
 
-  // If empty → reset to full list (force-fetch now)
   if (!trimmed) {
     setError('');
     setPage(1);
     try {
       setLoading(true);
-      await fetchPage(1, perPage); // fetch immediately, not waiting for useEffect
+      await fetchPage(1, perPage);
     } finally {
       setLoading(false);
     }
     return;
   }
 
-  // Normal single-song search
   setLoading(true);
   setError('');
   try {

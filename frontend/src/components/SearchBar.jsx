@@ -7,17 +7,16 @@ export default function SearchBar({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(q); // empty string triggers reset in App
+    onSearch(q);
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      {/* Stretch children so they share the tallest height */}
       <Stack direction="row" spacing={2} alignItems="stretch">
         <TextField
           label="Song title"
           variant="outlined"
-          size="small"       // small TextField height = ~40px
+          size="small"      
           value={q}
           onChange={(e) => setQ(e.target.value)}
           fullWidth
@@ -25,7 +24,6 @@ export default function SearchBar({ onSearch }) {
         <Button
           type="submit"
           variant="contained"
-          // Match TextField small height (theme spacing unit is 8px → 5 * 8 = 40px)
           sx={{ height: (theme) => theme.spacing(5) }}
         >
           Get

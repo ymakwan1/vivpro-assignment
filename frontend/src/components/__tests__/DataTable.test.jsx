@@ -2,7 +2,6 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import DataTable from '../DataTable';
 
-// Mock RatingStars to avoid importing services/api (axios)
 jest.mock('../RatingStars', () => {
   return function MockRatingStars({ song }) {
     return <span data-testid={`rating-${song.id}`}>{song.rating}</span>;
@@ -31,7 +30,6 @@ test('renders table rows', () => {
   renderTable();
   expect(screen.getByText('A Song')).toBeInTheDocument();
   expect(screen.getByText('B Song')).toBeInTheDocument();
-  // our mock renders numeric ratings too
   expect(screen.getByTestId('rating-1')).toHaveTextContent('3');
   expect(screen.getByTestId('rating-2')).toHaveTextContent('5');
 });
@@ -39,13 +37,11 @@ test('renders table rows', () => {
 test('sorts by rating when clicking the header', () => {
   renderTable();
 
-  // Click "Rating" header twice to get descending (DataTable starts asc on new column)
   const ratingHeader = screen.getByRole('button', { name: /rating/i });
-  fireEvent.click(ratingHeader); // asc: 3 first
-  fireEvent.click(ratingHeader); // desc: 5 first
+  fireEvent.click(ratingHeader); 
+  fireEvent.click(ratingHeader); 
 
   const rowsEls = screen.getAllByRole('row');
-  // rowsEls[0] is header; rowsEls[1] is first data row
   const firstDataRow = rowsEls[1];
   expect(within(firstDataRow).getByText('B Song')).toBeInTheDocument();
 });

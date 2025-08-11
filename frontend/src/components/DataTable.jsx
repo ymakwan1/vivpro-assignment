@@ -8,7 +8,7 @@ import GetAppIcon from '@mui/icons-material/Download';
 import Papa from 'papaparse';
 import RatingStars from './RatingStars';
 
-// Updated comparator to handle null/undefined as 0
+
 function descendingComparator(a, b, orderBy) {
   const aVal = Number(a[orderBy] ?? 0);
   const bVal = Number(b[orderBy] ?? 0);
@@ -72,7 +72,7 @@ export default function DataTable({
     { id: 'num_sections', label: 'Secs' },
     { id: 'num_segments', label: 'Segs' },
    // { id: 'class', label: 'Class' },
-    { id: 'rating', label: 'Rating' } // Now sortable
+    { id: 'rating', label: 'Rating' }
   ];
 
   return (
@@ -121,7 +121,6 @@ export default function DataTable({
         </Table>
       </TableContainer>
 
-      {/* Unknown total mode: next/prev only */}
       <TablePagination
         component="div"
         count={-1}
